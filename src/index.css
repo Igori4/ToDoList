@@ -65,7 +65,7 @@ code {
 
 .taskAdder {
     border: none;
-    width: 400px;
+    width: 500px;
     height: 40px;
     font-size: 20px;
     padding: 10px 0 10px 40px;
@@ -87,7 +87,7 @@ h1 {
 
 ul {
     list-style: none;
-    width: 400px;
+    width: 500px;
     margin: 0 auto;
     padding: 0;
     color: #8b8b8b;
@@ -97,9 +97,18 @@ ul {
 li {
     background: white;
     height: 40px;
+    font-size: 20px;
     line-height: 40px;
     border-bottom: 1px solid #cfcfcf;
     text-align: left;
+}
+
+.count-left-items {
+    font-size: 15px;
+}
+
+.menu .delete-completed-btn {
+    margin-left: 25px;
 }
 
 .completeBtn {
@@ -128,17 +137,14 @@ li {
     float: right;
     text-align: right;
     color: #8b8b8b;
-}
-
-.remove-task:hover {
-    opacity: 0.9;
     cursor: pointer;
 }
+
 
 .hideTasks {
     display: none;
 }
 
-.showTasks {
-    display: block;
+[type="checkbox"] {
+    cursor: pointer;
 }

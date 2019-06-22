@@ -4,7 +4,8 @@ const Menu = (props) => {
   let {
     countItems,
     filterTasks,
-    // completed
+    completed,
+    removeCompletedTask
   } = props;
   return (
     <div className="menu">
@@ -21,10 +22,17 @@ const Menu = (props) => {
       <button onClick={() => {
         filterTasks('completed')
       }}>Completed</button>
-      {/* {completed ?
-        <button>Delete completed</button>
+      {Object.keys(completed).length ?
+        <button
+          className="delete-completed-btn"
+          onClick = {() => {
+            removeCompletedTask()
+          }}
+        >
+          Delete completed
+        </button>
         :
-        null} */}
+        null}
     </div>
   );
 }
