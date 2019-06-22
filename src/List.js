@@ -8,15 +8,21 @@ const List = (props) => {
     countItems,
     removeTask,
     filterTasks,
-    completed
+    removeCompletedTask
   } = props;
+  let completed = {};
   return <ul>
     {Object.keys(tasks).map((task) => {
+      if (tasks[task]) {
+        completed[task] = task;
+      }
+
       return (
         <li
           key={task}
           className={tasks[task] ? 'completed' : 'active'}>
-          <button className="completeBtn"
+          <input
+            type="checkbox"
             onClick={
               () => completedTask(task)
             }
@@ -34,14 +40,15 @@ const List = (props) => {
       )
     })}
     <li className="menu-item">
-      {Object.keys(tasks).length ? 
-      <Menu 
-      countItems={countItems} 
-      filterTasks = {filterTasks}
-      completed = {completed}
-      /> 
-      : 
-      null}
+      {Object.keys(tasks).length ?
+        <Menu
+          countItems={countItems}
+          filterTasks={filterTasks}
+          completed={completed}
+          removeCompletedTask={removeCompletedTask}
+        />
+        :
+        null}
     </li>
   </ul>
 }

@@ -11,23 +11,25 @@ class ToDo extends React.Component {
     this.state = {
       tasks: {},
       countItems: 0,
-      completed: {}
+      completed: {},
     };
   };
 
-  showValue = (event) => {
-    if (event.key === 'Enter') {
-      if (event.target.value && this.state.countItems !== 6) {
-        let eventValue = event.target.value;
-        event.target.value = '';
-        this.setState(prevState => {
-          let copied = { ...prevState.tasks };
-          let countTaks = this.countCompletedTasks(this.state.tasks)
-          copied[eventValue] = false;
-          prevState.countItems = countTaks + 1;
-          return { tasks: copied };
+  addTask = (event) => {
+    if (event.key !== 'Enter') {
+      return;
+    }
+    if (event.target.value && this.state.countItems !== 10) {
+      let eventValue = event.target.value;
+      event.target.value = null;
+      let copied = { ...this.state.tasks };
+      let countTaks = this.countCompletedTasks(this.state.tasks)
+      copied[eventValue] = false;
+      let newAmount = countTaks + 1;
+      this.setState({
+          tasks: copied, 
+          countItems: newAmount
         })
-      }
     }
   }
 
@@ -50,11 +52,23 @@ class ToDo extends React.Component {
   }
 
   removeTask = (task) => {
-    let copyTasks = this.state.tasks;
+    let copyTasks = { ...this.state.tasks };
     delete copyTasks[task];
     this.setState({
       tasks: copyTasks,
       countItems: this.countCompletedTasks(this.state.tasks)
+    })
+  }
+
+  removeCompletedTask = () => {
+    let copyTasks = { ...this.state.tasks }
+    for (const compl in copyTasks) {
+      if (copyTasks[compl]) {
+        delete copyTasks[compl]
+      }
+    }
+    this.setState({
+      tasks: copyTasks
     })
   }
 
@@ -67,7 +81,7 @@ class ToDo extends React.Component {
             className="taskAdder"
             autoFocus
             placeholder="What needs to be done?"
-            onKeyDown={this.showValue}
+            onKeyDown={this.addTask}
           />
           {Object.values(this.state.tasks).length ?
             <List
@@ -77,6 +91,7 @@ class ToDo extends React.Component {
               removeTask={this.removeTask}
               filterTasks={this.filterTasks}
               completed={this.state.completed}
+              removeCompletedTask={this.removeCompletedTask}
             /> :
             null
           }
